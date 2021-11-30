@@ -1,0 +1,78 @@
+/* You can add global styles to this file, and also import other style files */
+/* .message-text {
+    word-wrap: break-word;
+    max-width: 30% !important;
+}
+
+.message-bubble {
+    max-width: 80% !important;
+} */
+
+/* 
+.uk-clearfix {
+    max-width: 300px !important;
+} */
+
+/* .message-content-inner {
+    width: 100%;
+} */
+
+/* .message-bubble {
+    max-width: 100%;
+} */
+/* 
+.modal-backdrop {
+    display: none;
+} */
+
+.chats-headline {
+    box-sizing: unset;
+}
+
+.post-state-btns.active {
+    background-color: #e8f0fe;
+    color: #1a73e8 !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.message-bubble .message-media {
+    float: left;
+    margin-left: 62px;
+    margin-top: 10px;
+}
+
+.message-bubble.me .message-media {
+    float: right;
+    text-align: right;
+    margin-right: 62px;
+}
+
+.message-bubble .message-media img {
+    float: left;
+    height: 120px;
+    margin: 3px;
+}
+
+.message-bubble.me .message-avatar i {
+    position: absolute;
+    bottom: 0;
+    right: -20px;
+    background-color: #48c04c;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 13px;
+    padding: 3px;
+}
+
+[class~=post] [class~=post-add-comment-avature] img {
+    width: .364583333in;
+    height: .364583333in;
+}
+
+.notification-active {
+    font-weight: bold;
+    background-color: rgba(214, 214, 214, 0.39);
+}

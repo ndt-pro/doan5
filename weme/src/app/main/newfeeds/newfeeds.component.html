@@ -1,0 +1,116 @@
+<div class="post" *ngFor="let item of timeline">
+    <div class="post-heading">
+        <div class="post-avature">
+            <img src="{{item.user.avatar | getImage}}" alt="{{item.user.fullName}}">
+        </div>
+        <div class="post-title">
+            <a [routerLink]="['/profile', item.user.id]"><h4> {{item.user.fullName}} </h4></a>
+            <p> {{item.createdAt | timeago}} <i class="uil-clock"></i> </p>
+        </div>
+
+        <div class="post-btn-action" *ngIf="item.user.id == user.id">
+            <span class="icon-more uil-ellipsis-h"></span>
+            <div class="mt-0 p-2" uk-dropdown="pos: bottom-right;mode:hover ">
+                <ul class="uk-nav uk-dropdown-nav">
+                    <!-- <li><a href="#"> <i class="uil-edit-alt mr-1"></i> Sửa </a></li> -->
+                    <li><a (click)="onDelete(item)" class="text-danger"> <i class="uil-trash-alt mr-1"></i> Xóa </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="post-description">
+        <p *ngIf="item.content">{{item.content}}</p>
+
+        <ng-container *ngIf="item.media.length == 1">
+            <div class="uk-grid-small" uk-grid>
+                <div class="uk-width-1-1@m">
+                    <img src="{{item.media[0] | getImage:1}}" class="rounded" alt=".">
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="item.media.length == 2">
+            <div class="uk-grid-small" uk-grid>
+                <div class="uk-width-1-2@m" *ngFor="let image of item.media">
+                    <img src="{{image | getImage:1}}" class="rounded" alt=".">
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="item.media.length > 2">
+            <div class="uk-grid-small" uk-grid>
+                <div class="uk-width-1-1@m">
+                    <img src="{{item.media[0] | getImage:1}}" class="rounded" alt=".">
+                </div>
+                <div class="uk-width-1-2@m uk-width-1-2">
+                    <img src="{{item.media[1] | getImage:1}}" class="rounded" alt=".">
+                </div>
+                <div class="uk-width-1-2@m uk-width-1-2 uk-position-relative">
+                    <img src="{{item.media[2] | getImage:1}}" class="rounded" alt=".">
+                    <div class="uk-position-center uk-light" *ngIf="item.media.length > 3">
+                        <a href="#">
+                            <h3> Xem tất cả </h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        
+
+        <div class="post-state-details">
+            <div class="cursor-pointer" (click)="openModalUserLikes(item)">
+                <img src="assets/images/icons/reactions_like.png" alt="">
+                <p> {{item.countLike}} </p>
+            </div>
+            <p> {{item.countComment}} Bình luận</p>
+        </div>
+
+    </div>
+
+    <div class="post-state">
+        <div class="post-state-btns" [ngClass]="{'active': item.liked}" (click)="onLike(item)"> <i class="uil-thumbs-up"></i> <span> Thích </span> </div>
+        <div class="post-state-btns" [routerLink]="['/comment', item.id]" > <i class="uil-comment-alt-dots"></i> <span> Bình luận</span> </div>
+    </div>
+
+    <!-- post comments -->
+    <div class="post-comments">
+        <div class="post-add-comment">
+            <div class="post-add-comment-avature">
+                <img src="{{user?.avatar | getImage}}" alt="{{user?.fullName}}">
+            </div>
+            <div class="post-add-comment-text-area">
+                <form [formGroup]="form" (ngSubmit)="onSubmit(item)">
+                    <input type="text" formControlName="content" placeholder="Viết bình luận...">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <p-dialog header="Đã thích bài viết này" [(visible)]="modalUserLikes" [style]="{ minWidth: '300px' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+        <a *ngFor="let user of newfeedsLike" [routerLink]="['/profile', user.id]" >
+            <div class="contact-list">
+                <div class="contact-list-media">
+                    <img src="{{user.avatar | getImage}}" alt="{{user.fullName}}">
+                    <span [ngClass]="{
+                        'online-dot': socket.checkStatus(user.id),
+                        'offline-dot': !socket.checkStatus(user.id)
+                    }"></span>
+                </div>
+                <h5> {{user.fullName}} </h5>
+            </div>
+        </a>
+        <div class="sp sp-circle" *ngIf="loadingUserLikes"></div>
+    </p-dialog>
+</div>
+<div class="search-results"
+    infinite-scroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="1000"
+    (scrolled)="onLoadMore()">
+</div>
+<div class="sp sp-circle" *ngIf="loadMoreSpinner"></div>
+<div class="text-center" *ngIf="loadOutOfData">
+    <span class="uk-text-large">Không còn tin để hiển thị</span>
+    <div class="mt-3"><button (click)="onRefreshNewFeeds()" pButton pRipple type="button" label="Làm mới" class="p-button-sm p-button-rounded p-button-outlined"></button></div>
+    <hr class="uk-divider-icon">
+</div>

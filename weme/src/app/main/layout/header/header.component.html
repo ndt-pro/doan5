@@ -1,0 +1,71 @@
+
+<!-- header -->
+<div id="main_header">
+    <header>
+        <div class="header-innr">
+            <!-- Logo-->
+            <div class="header-btn-traiger" uk-toggle="target: #wrapper; cls: collapse-sidebar mobile-visible">
+                <span></span></div>
+
+            <!-- Logo-->
+            <div id="logo">
+                <a (click)="goIndex()"> <img src="assets/images/weme.png" alt=""></a>
+                <a (click)="goIndex()"> <img src="assets/images/weme-light.png" class="logo-inverse" alt=""></a>
+            </div>
+
+            <!-- form search-->
+            <div class="head_search">
+                <form>
+                    <div class="head_search_cont">
+                        <input value="" type="text" class="form-control" placeholder="Tìm kiếm bài viết, ảnh, video,..." autocomplete="off">
+                        <i class="s_icon uil-search-alt"></i>
+                    </div>
+                </form>
+            </div>
+
+            <!-- user icons -->
+            <div class="head_user">
+                <app-tin-nhan></app-tin-nhan>
+
+                <app-thong-bao></app-thong-bao>
+
+
+                <!-- profile -image -->
+                <a class="opts_account" href="#"> <img src="{{user?.avatar | getImage:0}}" alt=""></a>
+
+                <!-- profile dropdown-->
+                <div uk-dropdown="mode:click; animation: uk-animation-slide-bottom-small"
+                    class="dropdown-notifications rounded">
+
+                    <!-- User Name / Avatar -->
+                    <a [routerLink]="['/profile']">
+
+                        <div class="dropdown-user-details">
+                            <div class="dropdown-user-avatar">
+                                <img src="{{user?.avatar | getImage:0}}" alt="">
+                            </div>
+                            <div class="dropdown-user-name"> {{user?.fullName}}   <span>Xem trang cá nhân</span> </div>
+                        </div>
+
+                    </a>
+
+                    <hr class="m-0">
+                    <ul class="dropdown-user-menu">
+                        <li><a [routerLink]="['/profile']"> <i class="uil-user"></i> Trang cái nhân </a> </li>
+                        <li><a href=""> <i class="uil-lock"></i> Đổi mật khẩu </a></li>
+                        <li>
+                            <a href="#" id="night-mode" class="btn-night-mode">
+                                <i class="uil-moon"></i> Chế độ đêm
+                                <span class="btn-night-mode-switch">
+                                    <span class="uk-switch-button"></span>
+                                </span>
+                            </a>
+                        </li>
+                        <li><a (click)="logout()"> <i class="uil-sign-out-alt"></i>Đăng xuất</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div> <!-- / heaader-innr -->
+    </header>
+</div>

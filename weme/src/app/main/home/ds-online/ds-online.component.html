@@ -1,0 +1,62 @@
+
+
+<!-- sidebar -->
+<div uk-sticky="offset:70 ; media : @m">
+    <ul class="uk-child-width-expand tab-small my-2 uk-tab">
+        <li class="uk-active"><a href="#">Đang trực tuyến</a></li>
+    </ul>
+
+    <div style="height: calc(100vh - 150px)">
+        <!-- start member contact -->
+        <ng-container *ngFor="let item of socket.list_online">
+            <a [routerLink]="['/profile', item.id]" >
+                <div class="contact-list">
+                    <div class="contact-list-media"> <img src="{{item.avatar | getImage}}" alt="{{item.fullName}}">
+                        <span class="online-dot"></span> </div>
+                    <h5> {{item.fullName}} </h5>
+                </div>
+            </a>
+            <div uk-drop="pos: left-center ;animation: uk-animation-slide-left-small">
+                <div class="contact-list-box">
+                    <div class="contact-list-box-media">
+                        <img src="{{item.avatar | getImage}}" alt="{{item.fullName}}">
+                        <span class="online-dot"></span>
+                    </div>
+                    <h4> {{item.fullName}} </h4>
+                    <div class="contact-list-box-btns">
+                        <a (click)="openModalMessage(item)" class="button primary block mr-2">
+                            <i class="uil-envelope mr-1"></i>
+                            Gửi tin nhắn
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <!-- end member contact -->
+    </div>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <p-dialog header="Gửi tin nhắn" [(visible)]="modal" [style]="{ width: '50vw' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+        <div class="post-new-media">
+            <div class="post-new-media-user">
+                <img src="{{user_select?.avatar | getImage}}" alt="">
+            </div>
+            <div class="post-new-media-input">
+                <textarea class="uk-textarea" rows="5" placeholder="Nhập nội dung tin nhắn" formControlName="content"></textarea>
+                <ng-container *ngIf="submitted && f.content.errors">
+                    <div *ngIf="f.content.errors.required" class="alert alert-danger mt-2">Vui lòng nhập nội dung</div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="post-new-media mt-3">
+            <div class="post-new-media-user" style="width: 40px; height: 40px;"></div>
+            <div class="post-new-media-input">
+                <p-fileUpload mode="advanced" [showUploadButton]="false" [showCancelButton]="false" chooseLabel ="Tải ảnh lên" [multiple]="true" accept="image/*" maxFileSize="1000000"></p-fileUpload>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple icon="fa fa-send-o" type="submit" label="Gửi tin nhắn" class="p-button-rounded"></button>
+        </ng-template>
+    </p-dialog>
+</form>

@@ -1,0 +1,76 @@
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-form-title" style="background-image: url(/assets/login-page/images/bg-01.jpg);">
+                <span class="login100-form-title-1">
+                    Đăng Ký
+                </span>
+            </div>
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login100-form validate-form">
+                <div class="wrap-input100 m-b-26">
+                    <span class="label-input100">Họ tên</span>
+                    <input class="input100" type="text" placeholder="Nhập họ tên" formControlName="full_name" [ngClass]="{ 'is-invalid': submitted && f.full_name.errors }">
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="alert-valid" *ngIf="submitted && f.full_name.errors">
+                    <span *ngIf="f.full_name.errors.required">Vui lòng nhập họ tên</span>
+                </div>
+
+                <div class="wrap-input100 m-b-26">
+                    <span class="label-input100">Email</span>
+                    <input class="input100" type="email" placeholder="Nhập email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="alert-valid" *ngIf="submitted && f.email.errors">
+                    <span *ngIf="f.email.errors.required">Vui lòng nhập email</span>
+                    <span *ngIf="f.email.errors.email">Email không hợp lệ</span>
+                </div>
+
+                <div class="wrap-input100 m-b-26">
+                    <span class="label-input100">Số điện thoại</span>
+                    <input class="input100" type="text" placeholder="Nhập số điện thoại" formControlName="phone_number" [ngClass]="{ 'is-invalid': submitted && f.phone_number.errors }">
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="alert-valid" *ngIf="submitted && f.phone_number.errors">
+                    <span *ngIf="f.phone_number.errors.required">Vui lòng nhập số điện thoại</span>
+                    <span *ngIf="f.phone_number.errors.pattern">Số điện thoại không hợp lệ</span>
+                </div>
+
+                <div class="wrap-input100 m-b-18">
+                    <span class="label-input100">Mật khẩu</span>
+                    <input class="input100" type="password" placeholder="Nhập mật khẩu" formControlName="pass" [ngClass]="{ 'is-invalid': submitted && f.pass.errors }">
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="alert-valid" *ngIf="submitted && f.pass.errors">
+                    <span *ngIf="f.pass.errors.required">Vui lòng nhập mật khẩu</span>
+                </div>
+
+                <div class="wrap-input100 m-b-18">
+                    <span class="label-input100">Xác nhận mật khẩu</span>
+                    <input class="input100" type="password" placeholder="Nhập lại mật khẩu" formControlName="pass_confirm" [ngClass]="{ 'is-invalid': submitted && f.pass_confirm.errors }">
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="alert-valid" *ngIf="submitted && f.pass_confirm.errors">
+                    <span *ngIf="f.pass_confirm.errors.required">Vui lòng nhập mật khẩu xác nhận</span>
+                    <span *ngIf="f.pass_confirm.errors.confirm_password">Mật khẩu xác nhận không khớp</span>
+                </div>
+
+                <div class="flex-sb-m w-full p-b-30">
+                    <div>
+                        <button class="login100-form-btn">
+                            Đăng ký
+                        </button>
+                    </div>
+
+                    <div>
+                        <button class="login100-form-btn red" [routerLink]="['/login']">
+                            Đăng nhập
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

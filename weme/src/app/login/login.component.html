@@ -1,0 +1,62 @@
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-form-title" style="background-image: url(/assets/login-page/images/bg-02.jpg);">
+                <span class="title-login">
+                    Đăng Nhập
+                </span>
+            </div>
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login100-form validate-form">
+                <div class="wrap-input100 m-b-26">
+                    <span class="label-input100">Email</span>
+                    <input class="input100" type="email" placeholder="Nhập email" formControlName="email">
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="alert-valid" *ngIf="submitted && f.email.errors">
+                    <span *ngIf="f.email.errors.required">Vui lòng nhập email</span>
+                    <span *ngIf="f.email.errors.email">Email không hợp lệ</span>
+                </div>
+
+                <div class="wrap-input100 m-b-18">
+                    <span class="label-input100">Mật khẩu</span>
+                    <input class="input100" type="password" placeholder="Nhập mật khẩu" formControlName="pass">
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="alert-valid" *ngIf="submitted && f.pass.errors">
+                    <span *ngIf="f.pass.errors.required">Vui lòng nhập mật khẩu</span>
+                </div>
+
+                <div class="flex-sb-m w-full p-b-30">
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                        <label class="label-checkbox100" for="ckb1">
+                            Nhớ tài khoản
+                        </label>
+                    </div>
+
+                    <div>
+                        <a href="#" class="txt1">
+                            Quên mật khẩu
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex-sb-m w-full p-b-30">
+                    <div>
+                        <button class="login100-form-btn">
+                            Đăng nhập
+                        </button>
+                    </div>
+
+                    <div>
+                        <button class="login100-form-btn red ml-5" [routerLink]="['/register']">
+                            Tạo tài khoản
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

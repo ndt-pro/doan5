@@ -1,0 +1,74 @@
+
+<h1> Chỉnh sửa thông tin </h1>
+
+<div class="uk-position-relative" uk-grid>
+    <div class="uk-width-1-4@m uk-flex-last@m pl-sm-0">
+
+        <nav class="responsive-tab style-3 setting-menu" uk-sticky="top:30 ; offset:100; media:@m ;bottom:true; animation: uk-animation-slide-top">
+            <ul>
+                <li routerLinkActive="uk-active"><a [routerLink]="['/profile/edit']" > <i class="uil-cog"></i> Chỉnh sửa </a></li>
+                <li><a [routerLink]="['/profile']"> <i class="uil-user"></i> Trang cá nhân </a></li>
+                <li><a href="#"> <i class="uil-unlock-alt"></i> Đổi mật khẩu </a></li>
+                <li><a (click)="logout()"> <i class="uil-sign-out-alt"></i> Đăng xuất</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="uk-width-2-3@m pl-sm-4 pr-sm-4">
+
+        <div class="uk-card-default rounded">
+            <div class="p-3">
+                <h5 class="mb-0"> Thông tin cá nhân </h5>
+            </div>
+            <hr class="m-0">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="uk-child-width-2-2@s uk-grid-small p-4" uk-grid>
+                <div>
+                    <h5 class="uk-text-bold mb-2"> Họ tên </h5>
+                    <input type="text" class="uk-input" placeholder="Nhập họ tên..." formControlName="full_name">
+                    <ng-container *ngIf="submitted && f.full_name.errors">
+                        <div *ngIf="f.full_name.errors.required" class="alert alert-danger mt-2">Vui lòng nhập họ tên</div>
+                    </ng-container>
+                </div>
+                <div>
+                    <h5 class="uk-text-bold mb-2"> Số điện thoại </h5>
+                    <input type="text" class="uk-input" placeholder="Nhập số điện thoại..." formControlName="phone_number">
+                    <ng-container *ngIf="submitted && f.phone_number.errors">
+                        <div *ngIf="f.phone_number.errors.required" class="alert alert-danger mt-2">Vui lòng nhập số điện thoại</div>
+                        <div *ngIf="f.phone_number.errors.pattern" class="alert alert-danger mt-2">Số điện thoại không hợp lệ</div>
+                    </ng-container>
+                </div>
+                <div>
+                    <h5 class="uk-text-bold mb-2"> Địa chỉ </h5>
+                    <textarea class="uk-textarea" rows="5" placeholder="Nhập địa chỉ..." formControlName="address"></textarea>
+                    <ng-container *ngIf="submitted && f.address.errors">
+                        <div *ngIf="f.address.errors.required" class="alert alert-danger mt-2">Vui lòng nhập địa chỉ</div>
+                    </ng-container>
+                </div>
+                <div>
+                    <h5 class="uk-text-bold mb-2"> Tiểu sử </h5>
+                    <textarea class="uk-textarea" rows="5" placeholder="Nhập tiểu sử của bạn..." formControlName="story"></textarea>
+                </div>
+                <div>
+                    <h5 class="uk-text-bold mb-2"> Sinh nhật </h5>
+                    <p-calendar formControlName="birthday" [dateFormat]="dateFormat" [locale]="locale_vn" [showIcon]="true" inputId="icon"></p-calendar>
+                    <ng-container *ngIf="submitted && f.birthday.errors">
+                        <div *ngIf="f.birthday.errors.required" class="alert alert-danger mt-2">Vui chọn ngày sinh nhật của bạn</div>
+                    </ng-container>
+                </div>
+                <div>
+                    <h5 class="uk-text-bold mb-2"> Ảnh đại diện </h5>
+                    <p-fileUpload #file_avatar mode="advanced" [showUploadButton]="false" [showCancelButton]="false" chooseLabel ="Chọn ảnh" [multiple]="false" accept="image/*" maxFileSize="1000000">
+                        <ng-template pTemplate="content">
+                            <img *ngIf="user" style="height: 100px;width: 100px;" src="{{user.avatar | getImage}}">
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+
+                <div class="uk-flex uk-flex-right p-4">
+                    <button [routerLink]="['/profile']" class="button soft-primary mr-2">Hủy</button>
+                    <button class="button primary">Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

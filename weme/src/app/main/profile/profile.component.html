@@ -1,0 +1,68 @@
+<ng-container *ngIf="user_view">
+    <div class="profile">
+        <div class="profile-cover">
+            <!-- profile cover -->
+            <img src="assets/images/avatars/profile-cover.jpg" alt="">
+        </div>
+    
+        <div class="profile-details">
+            <div class="profile-image">
+                <img src="{{user_view.avatar | getImage:0}}" alt="">
+            </div>
+            <div class="profile-details-info">
+                <h1> {{user_view.fullName}} </h1>
+                <p> {{user_view.story}} </p>
+            </div>
+        </div>
+    
+        <div class="nav-profile" uk-sticky="offset:61;media : @s">
+            <div class="py-md-2 uk-flex-last">
+                <a *ngIf="!uid" [routerLink]="['/profile/edit']" rou class="button primary mr-2"> <i class="uil-cog"></i> Chỉnh sửa thông tin</a>
+                <a *ngIf="uid" href="#" class="button primary mr-2"> <i class="uil-facebook-messenger-alt"></i> Gửi tin nhắn</a>
+            </div>
+            <div>
+                <nav class="responsive-tab">
+                    <ul>
+                        <li class="uk-active"><a class="active" href="#">Dòng thời gian</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="section-small">
+        <div uk-grid>
+            <div class="uk-width-2-3@m fead-area">
+                <!-- start post -->
+                <app-newfeeds [user_view]="user_view"></app-newfeeds>
+                <!-- end post -->
+            </div>
+    
+            <!-- sidebar -->
+            <div class="uk-width-expand ml-lg-2">
+                <h3> Thông tin cá nhân </h3>
+                <div class="list-group-items">
+                    <i class="uil-phone"></i>
+                    <h5> Số điện thoại: <span> {{user_view.phoneNumber}} </span> </h5>
+                </div>
+                <div class="list-group-items">
+                    <i class="uil-location-point"></i>
+                    <h5> Địa chỉ: <span> {{user_view.address}} </span> </h5>
+                </div>
+                <div class="list-group-items">
+                    <i class="uil-calendar-alt"></i>
+                    <h5> Sinh nhật: <span> {{user_view.birthday | date:'dd/MM/yyyy'}} </span> </h5>
+                </div>
+                <div class="list-group-items">
+                    <i class="uil-thumbs-up"></i>
+                    <h5> Số like: <span> 1.000 </span> </h5>
+                </div>
+                <div class="list-group-items">
+                    <i class="uil-rss"></i>
+                    <h5> Có <span> 3,240 </span> <span> người theo dõi </span> </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
